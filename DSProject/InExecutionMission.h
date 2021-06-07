@@ -10,14 +10,15 @@ class InExecution_Mission :public Missions
 {
 protected:
 	char type;
-
+	long double finishTime;
 	public:
 	//InExecution_Mission(int eventday, long double TargetLocation, int MissionDuration, int Significance, int ID) :Missions(eventday, TargetLocation, MissionDuration, Significance, ID)
 	//{
 	//}
 	InExecution_Mission() :Missions()
 	{
-
+		finishTime = 0;
+		type = '-';
 	}
 
 	InExecution_Mission(WaitingPolar WP)
@@ -39,6 +40,14 @@ protected:
 		MissionID = WE.GetMissionID();
 		R = WE.GetRover();
 		type = 'E';
+	}
+	double GetFinishTime() {
+
+
+		finishTime = ((Target_Location / R->getSpeed()) / 25) * 2 + Mission_Duration;
+
+
+		return finishTime;
 	}
 
 	~InExecution_Mission() {

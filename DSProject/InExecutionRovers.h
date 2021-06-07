@@ -6,6 +6,7 @@
 class InExecutionRovers : public Rovers
 {
 	char type;
+
 public:
 	InExecutionRovers(int checkup, int nMissions, int speed)
 	{
@@ -21,7 +22,7 @@ public:
 
 	InExecutionRovers(PolarRovers PR)
 	{
-		CheckupDuration = checkup;
+		CheckupDuration = ;
 		NumberOfMissions = nMissions;
 		this->speed = speed;
 		AtCheckup = false;

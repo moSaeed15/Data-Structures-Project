@@ -23,6 +23,23 @@ public:
 	virtual void SetisAtCheckup(bool x) = 0;
 	virtual bool GetisAtCheckup() = 0;
 
+	int getCheckupDuration() {
+		return CheckupDuration;
+	}
+
+	int getNumberOfMissions() {
+
+		return NumberOfMissions;
+	}
+
+	int getSpeed() {
+
+		return speed;
+	}
+
+	bool getAtCheckup() {
+		return AtCheckup;
+		}
 	~Rovers()
 	{
 	}

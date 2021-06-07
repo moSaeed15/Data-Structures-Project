@@ -8,6 +8,7 @@ int main() {
 		MS.ExecuteEvents();
 		MS.AssignMissions();
 		MS.IncrementWD();
+		MS.moveToCompleted();
 	}
 	return 0;
 }

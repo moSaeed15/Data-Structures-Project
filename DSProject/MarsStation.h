@@ -109,6 +109,7 @@ public:
 
 			if (EmergencyMQ.dequeue(EM)) {
 				EM.assignEMRover(PolarRoverQ, EmergencyRoverQ);
+				EM.GetRover();
 				InExecution_Mission inexcutionM(EM);
 				Inex.enqueue(inexcutionM);
 			}
@@ -153,8 +154,9 @@ public:
 	//TO DO:
 	//Implement a function to move rovers from available to in-execution to checkup to available again
 	void moveToCompleted() {
-
-
+		InExecution_Mission EXM;
+		Inex.dequeue(EXM);
+		cout<<EXM.GetFinishTime();
 
 
 

@@ -9,7 +9,7 @@ using namespace std;
 class InExecution_Mission :public Missions
 {
 protected:
-
+	char type;
 
 	public:
 	//InExecution_Mission(int eventday, long double TargetLocation, int MissionDuration, int Significance, int ID) :Missions(eventday, TargetLocation, MissionDuration, Significance, ID)
@@ -28,6 +28,7 @@ protected:
 		significance = WP.Getsignificance();
 		MissionID = WP.GetMissionID();
 		R = WP.GetRover();
+		type = 'P';
 	}
 	InExecution_Mission(WaitingEmergency WE)
 	{
@@ -37,6 +38,7 @@ protected:
 		significance = WE.Getsignificance();
 		MissionID = WE.GetMissionID();
 		R = WE.GetRover();
+		type = 'E';
 	}
 
 	~InExecution_Mission() {

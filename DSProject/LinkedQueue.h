@@ -78,6 +78,7 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	void print() const;
+	int count();
 	~LinkedQueue();
 
 	//copy constructor
@@ -234,6 +235,18 @@ void LinkedQueue<T>::print() const
 	cout << endl;
 }
 
+template<typename T>
+int LinkedQueue<T>::count() 
+{
+	Node<T>* ptr = frontPtr;
+	int c = 0;
+	while (ptr)
+	{
+		ptr = ptr->getNext();
+		c++;
+	}
+	return c;
+}
 
 
 #endif

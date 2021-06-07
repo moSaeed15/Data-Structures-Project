@@ -28,12 +28,16 @@ private:
 	LinkedQueue<PolarRovers> PolarRoverQ;
 	LinkedQueue<EmergencyRovers> EmergencyRoverQ;
 	LinkedQueue<EventFormulation> QEF;
-	LinkedQueue<WaitingPolar> QPM;
-	PriorityQueue<WaitingEmergency> PriQE;
+	LinkedQueue<WaitingPolar> polarMQ;
+	PriorityQueue<WaitingEmergency> EmergencyMQ;
+	PriorityQueue<WaitingEmergency> InExR;
 	LinkedQueue<InExecution_Mission> Inex;
 public:
 	MarsStation()
 	{
+		ExD = 0;
+		CD = 0;
+		WD = 0;
 		currentDay = 0;
 		NP = 0; NE = 0;
 		SP = 0; SE = 0;
@@ -87,7 +91,7 @@ public:
 			tempQ.dequeue(EF);
 			if (currentDay == EF.getEventDay()) {
 				QEF.dequeue(EF);
-				EF.Excute(QPM, PriQE);
+				EF.Excute(polarMQ, EmergencyMQ);
 			}
 			else {
 				QEF.dequeue(EF);
@@ -103,12 +107,12 @@ public:
 			WaitingEmergency EM;
 			WaitingPolar PM;
 
-			if (PriQE.dequeue(EM)) {
+			if (EmergencyMQ.dequeue(EM)) {
 				EM.assignEMRover(PolarRoverQ, EmergencyRoverQ);
 				InExecution_Mission inexcutionM(EM);
 				Inex.enqueue(inexcutionM);
 			}
-			else if (QPM.dequeue(PM)) {
+			else if (polarMQ.dequeue(PM)) {
 				PM.assignPMRover(PolarRoverQ);
 				InExecution_Mission inexcutionM(PM);
 				Inex.enqueue(inexcutionM);
@@ -120,10 +124,31 @@ public:
 		EmergencyRoverQ.print();
 		PolarRoverQ.print();
 		Inex.print();
-		QPM.print();
+		polarMQ.print();
+		currentDay++;
 	}
 	//TO DO:
 	//Implement a function to move missions from waiting to in-execution to completed
+	void IncrementWD() {
+		if (polarMQ.isEmpty() && EmergencyMQ.isEmpty()) {
+			return;
+		}
+		WaitingEmergency EM;
+		WaitingPolar PM;
+		int countP=PolarRoverQ.count();
+		int countE=EmergencyMQ.count();
+		for (int i = 0; i < countE;i++) {
+			EmergencyMQ.dequeue(EM);
+			EM.incrementEWaitingDays();
+			int missionWeight = (100 - EM.GetFD()) + EM.Getsignificance() + EM.GetTarget_Location() + EM.GetMission_Duration();
+			EmergencyMQ.enqueue(EM, missionWeight);
+		}
+		for (int i = 0; i < countE; i++) {
+			polarMQ.dequeue(PM);
+			PM.incrementPWaitingDays();
+			polarMQ.enqueue(PM);
+		}
+	}
 
 	//TO DO:
 	//Implement a function to move rovers from available to in-execution to checkup to available again

@@ -4,7 +4,7 @@
 
 class WaitingPolar :public Missions {
 protected:
-
+	int waitingDays = 0;
 
 public:
 	WaitingPolar(int eventday, long int Targetlocation, int MissionDuration, int Significance, int ID)
@@ -28,8 +28,12 @@ public:
 		}
 		return false;
 	}
-
-
+	void incrementPWaitingDays() {
+		waitingDays++;
+	}
+	int getWaitingPDays() {
+		return waitingDays;
+	}
 	~WaitingPolar() {
 
 	}

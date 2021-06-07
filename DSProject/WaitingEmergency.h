@@ -5,7 +5,7 @@
 
 class WaitingEmergency :public Missions {
 protected:
-
+	int waitingDays = 0;
 
 public:
 	WaitingEmergency(int eventday, long int Targetlocation, int MissionDuration, int Significance, int ID)
@@ -32,6 +32,14 @@ public:
 			}
 		}
 		return false;
+	}
+
+	void incrementEWaitingDays() {
+		waitingDays++;
+	}
+
+	int getWaitingEDays() {
+		return waitingDays;
 	}
 
 	WaitingEmergency():Missions()

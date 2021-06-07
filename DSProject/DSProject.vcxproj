@@ -144,6 +144,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventFormulation.h" />
     <ClInclude Include="InExecutionMission.h" />
+    <ClInclude Include="InExecutionRovers.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="MarsStation.h" />
     <ClInclude Include="Missions.h" />

@@ -17,6 +17,7 @@ public:
 	bool isEmpty() const;
     void enqueue(const T& newEntry, const int& significance);
 	bool dequeue(T& frntEntry);
+	int count();
 	~PriorityQueue();
 
 	//copy constructor
@@ -75,6 +76,18 @@ bool PriorityQueue<T>::dequeue(T& frntEntry)
 	delete nodeToDeletePtr;
 
 	return true;
+}
+
+template<typename T>
+int PriorityQueue<T>::count()
+{
+	PQNode<T>* NodePtr =frontPtr;
+	int c = 0;
+	while (NodePtr) {
+		NodePtr=NodePtr->getNext();
+		c++;
+	}
+	return c;
 }
 
 template <typename T>

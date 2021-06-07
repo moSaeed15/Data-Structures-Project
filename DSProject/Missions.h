@@ -38,7 +38,6 @@ public:
 		R = nullptr;
 		MissionID = 0;
 	}
-
 	int GetFD() {
 		return FD;
 	}

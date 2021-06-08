@@ -4,12 +4,10 @@ int main() {
 
 	MarsStation MS;
 	MS.loadFile();
-   	while (true) {
-		MS.ExecuteEvents();
-		MS.AssignMissions();
-		MS.IncrementWD();
-	
-		MS.moveToCompleted();
+   	while (MS.getnumberOfCompletedMissions()!=MS.getnumberOfEvents()) {
+		MS.Simulate();
 	}
+	MS.SaveFile();
+	MS.Statistics();
 	return 0;
 }

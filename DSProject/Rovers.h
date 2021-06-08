@@ -11,6 +11,7 @@ protected:
 	int NumberOfMissions;
 	int speed;
 	bool AtCheckup;
+	int dateEnteredCheckup;
 	//static int RoverID = 0;
 public:
 	Rovers()
@@ -30,7 +31,12 @@ public:
 	int getCheckupDuration() {
 		return CheckupDuration;
 	}
-
+	void setdateEnteredCheckup(int d) {
+		dateEnteredCheckup = d;
+	}
+	int getdateEnteredCheckup() {
+		return dateEnteredCheckup;
+	}
 	int getNumberOfMissions() {
 
 		return NumberOfMissions;

@@ -11,13 +11,14 @@
 #include "EventFormulation.h"
 #include "InExecutionRovers.h"
 #include "CompletedMission.h"
+#include "CheckupEmergencyRover.h"
+#include "CheckupPolarRover.h"
+
 class MarsStation
 {
 private:
 	int currentDay;
-	/*int WD;
-	int ExD;
-	int CD;*/
+	int numberOfCompletedMissions;
 	int NP, NE, SP, SE;
 	int N; //number of missions the rover completes before performing a checkup
 	int CP, CE; //checkup duration
@@ -33,10 +34,12 @@ private:
 	PriorityQueue<InExecutionRovers> InExR;
 	LinkedQueue<InExecution_Mission> Inex;
 	LinkedQueue<CompletedMission> CompletedMQ;
+	LinkedQueue<CheckupEmergencyRover> CheckupEmergencyRoverQ;
+	LinkedQueue<CheckupPolarRover> CheckupPolarRoverQ;
 public:
 	MarsStation()
 	{
-
+		numberOfCompletedMissions = 0;
 		currentDay = 0;
 		NP = 0; NE = 0;
 		SP = 0; SE = 0;
@@ -113,7 +116,6 @@ public:
 			if(	inexcutionM.getPR().getSpeed() != 0){
 				inexcutionM.getPR().incrementNoMission();
 				InExecutionRovers InExecutionR(inexcutionM.getPR());
-			
 				InExR.enqueue(InExecutionR, inexcutionM.GetFinishTime());
 			}
 			else {
@@ -158,20 +160,12 @@ public:
 		}
 
 	}
-	//void IncrementED() {
-	//	if (Inex.isEmpty()) {
-	//		return;
-	//	}
-	//	InExecution_Mission InExecM;
-	//	int countInExeuction = Inex.count();
-	//	for (int i = 0; i < countInExeuction; i++) {
-	//		Inex.dequeue(InExecM);
-	//		if (!InExecM.isFinished(currentDay));
-	//		InExecM.incrementED();
-	//		Inex.enqueue(InExecM);
-
-	//	}
-	//}
+	int getnumberOfCompletedMissions() {
+		return numberOfCompletedMissions;
+	}
+	int getnumberOfEvents() {
+		return E;
+	}
 	//TO DO:
 	//Implement a function to move rovers from available to in-execution to checkup to available again
 	void moveToCompleted() {
@@ -183,24 +177,74 @@ public:
 			if (InExecM.isFinished(currentDay)) {
 				CompletedMission CM(InExecM);
 				CompletedMQ.enqueue(CM);
+				numberOfCompletedMissions++;
 			}
 			else {
 				InExecM.incrementED();
 				Inex.enqueue(InExecM);
 			}
 		}
-
-
-
-
-
 	}
 
 
 	void moveRovers() {
-
+		InExecutionRovers EXR;
+		while (InExR.dequeue(EXR)) {
+			if (EXR.getNumberOfMissions() == N && EXR.getType() == 'P') {
+				CheckupPolarRover CPR(EXR);
+				CheckupPolarRoverQ.enqueue(CPR);
+			}
+			else if (EXR.getNumberOfMissions() == N && EXR.getType() == 'E') {
+				CheckupEmergencyRover CER(EXR);
+				CheckupEmergencyRoverQ.enqueue(CER);
+			}
+			else if (EXR.getType() == 'P'){
+				int checkupduration = EXR.getCheckupDuration();
+				int NumberOfMissions = EXR.getNumberOfMissions();
+				int Speed = EXR.getSpeed();
+				PolarRovers PR(checkupduration, NumberOfMissions, Speed);
+				PolarRoverQ.enqueue(PR);
+			}
+			else {
+				int checkupduration = EXR.getCheckupDuration();
+				int NumberOfMissions = EXR.getNumberOfMissions();
+				int Speed = EXR.getSpeed();
+				EmergencyRovers ER(checkupduration, NumberOfMissions, Speed);
+				EmergencyRoverQ.enqueue(ER);
+			}
+		}
 	}
 
+	void removeFromCheckup() {
+		int countCPR=CheckupPolarRoverQ.count();
+		int countCER = CheckupEmergencyRoverQ.count();
+		CheckupEmergencyRover CER;
+		CheckupPolarRover CPR;
+		for(int i=0;i< countCPR;i++){
+			CheckupPolarRoverQ.dequeue(CPR);
+			if (currentDay == (CPR.getCheckupDuration()+ CPR.getdateEnteredCheckup())) {
+				PolarRovers PR(CPR.getCheckupDuration(), CPR.getNumberOfMissions(), CPR.getSpeed());
+				PolarRoverQ.enqueue(PR);
+			}
+		}
+		for (int i = 0; i < countCER; i++) {
+			CheckupEmergencyRoverQ.dequeue(CER);
+			if (currentDay == (CER.getCheckupDuration() + CER.getdateEnteredCheckup())) {
+				EmergencyRovers ER(CER.getCheckupDuration(), CER.getNumberOfMissions(), CER.getSpeed());
+				EmergencyRoverQ.enqueue(ER);
+			}
+		}
+	}
+	void Simulate() {
+		ExecuteEvents();
+		AssignMissions();
+		IncrementWD();
+		moveToCompleted();
+		moveRovers();
+		removeFromCheckup();
+		UI.output();
+		currentDay++;
+	}
 	void Statistics() {
 		//calculate statistics needed to create output file
 	}

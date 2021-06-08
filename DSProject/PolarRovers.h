@@ -22,8 +22,12 @@ public:
 
 	void SetisAtCheckup(bool x)
 	{
+	
 		AtCheckup = x;
 	}
+
+
+
 
 	bool GetisAtCheckup()
 	{

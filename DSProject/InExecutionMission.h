@@ -38,6 +38,8 @@ protected:
 			PolarRovers tempPR;
 			if (QPR.dequeue(tempPR)) {
 				PR = tempPR;
+				GetFinishTime();
+				PR.setdateEnteredCheckup(finishTime);
 			}
 		}
 		finishTime = GetFinishTime();
@@ -58,12 +60,16 @@ protected:
 
 			if (QER.dequeue(tempER)) {
 				ER = tempER;
+				GetFinishTime();
+				ER.setdateEnteredCheckup(finishTime);
 			}
 		}
 		else if (!QPR.isEmpty()) {
 			PolarRovers tempPR;
 			if (QPR.dequeue(tempPR)) {
 				PR = tempPR;
+				GetFinishTime();
+				PR.setdateEnteredCheckup(finishTime);
 			}
 		}
 		finishTime = GetFinishTime();

@@ -1,7 +1,6 @@
 #pragma once
 #include "Rovers.h"
-#include <iostream>
-using namespace std;
+
 
 
 class CheckupEmergencyRover : public Rovers
@@ -18,9 +17,14 @@ public:
 	{
 
 	}
-	CheckupEmergencyRover() 
-	{
 
+	CheckupEmergencyRover(InExecutionRovers EXR)
+	{
+		CheckupDuration = EXR.getCheckupDuration();
+		NumberOfMissions = EXR.getNumberOfMissions();
+		speed = EXR.getSpeed();
+		AtCheckup = EXR.getAtCheckup();
+		dateEnteredCheckup = EXR.getdateEnteredCheckup();
 	}
 
 	void SetisAtCheckup(bool x)

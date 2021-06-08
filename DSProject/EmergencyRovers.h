@@ -20,6 +20,8 @@ public:
 
 	}
 
+
+
 	void SetisAtCheckup(bool x)
 	{
 		AtCheckup = x;

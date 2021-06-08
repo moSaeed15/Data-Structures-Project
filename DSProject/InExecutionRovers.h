@@ -20,7 +20,14 @@ public:
 	{
 		type = '-';
 	}
+	char getType() {
 
+
+
+
+
+		return type;
+	}
 	InExecutionRovers(PolarRovers PR)
 	{
 		CheckupDuration = PR.getCheckupDuration();
@@ -28,6 +35,7 @@ public:
 		speed = PR.getSpeed();
 		AtCheckup = PR.getAtCheckup();
 		type = 'P';
+		dateEnteredCheckup = PR.getdateEnteredCheckup();
 	}
 	InExecutionRovers(EmergencyRovers ER)
 	{
@@ -36,6 +44,7 @@ public:
 		speed = ER.getSpeed();
 		AtCheckup = ER.getAtCheckup();
 		type = 'E';
+		dateEnteredCheckup = ER.getdateEnteredCheckup();
 	}
 
 

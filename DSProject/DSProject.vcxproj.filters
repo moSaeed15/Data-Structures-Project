@@ -66,6 +66,12 @@
     <ClInclude Include="InExecutionRovers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CheckupPolarRover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckupEmergencyRover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

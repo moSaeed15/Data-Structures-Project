@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CheckupEmergencyRover.h" />
     <ClInclude Include="CompletedMission.h" />
     <ClInclude Include="EmergencyRovers.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventFormulation.h" />
+    <ClInclude Include="CheckupPolarRover.h" />
     <ClInclude Include="InExecutionMission.h" />
     <ClInclude Include="InExecutionRovers.h" />
     <ClInclude Include="LinkedQueue.h" />

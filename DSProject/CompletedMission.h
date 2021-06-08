@@ -4,22 +4,34 @@
 #include "InExecutionMission.h"
 using namespace std;
 
-template <typename T>
-class Completed_Mission : public InExecution_Mission<T>
+class CompletedMission : public InExecution_Mission
 {
 private:
-	int CD;
-public:
-	Completed_Mission(T MType) : MissionType(MType)
-	{
-		FD = 0;
-		Target_Location = 0.0;
-		Mission_Duration = 0;
-		significance = 0;
-		CD = 0;
-	}
 
-	~Completed_Mission() {
+public:
+	CompletedMission() :InExecution_Mission()
+	{
+
+	}
+	CompletedMission(InExecution_Mission IM)
+	{
+		FD = IM.GetFD();
+		CD = IM.GetFD() + IM.GetED() + IM.GetWD();
+		waitingDays = IM.GetWD();
+		ED = IM.GetED();
+		Target_Location = IM.GetTarget_Location();
+		Mission_Duration = IM.GetMission_Duration();
+		significance = IM.Getsignificance();
+		MissionID = IM.GetMissionID();
+		R = IM.GetRover();
+		if (IM.getType() == 'P') {
+			type = 'P';
+		}
+		else {
+			type = 'E';
+		}
+	}
+	~CompletedMission() {
 
 	}
 };

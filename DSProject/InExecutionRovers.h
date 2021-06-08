@@ -14,26 +14,27 @@ public:
 		NumberOfMissions = nMissions;
 		this->speed = speed;
 		AtCheckup = false;
+		type = '-';
 	}
 	InExecutionRovers() :Rovers()
 	{
-
+		type = '-';
 	}
 
 	InExecutionRovers(PolarRovers PR)
 	{
-		CheckupDuration = ;
-		NumberOfMissions = nMissions;
-		this->speed = speed;
-		AtCheckup = false;
+		CheckupDuration = PR.getCheckupDuration();
+		NumberOfMissions = PR.getNumberOfMissions();
+		speed = PR.getSpeed();
+		AtCheckup = PR.getAtCheckup();
 		type = 'P';
 	}
 	InExecutionRovers(EmergencyRovers ER)
 	{
-		CheckupDuration = checkup;
-		NumberOfMissions = nMissions;
-		this->speed = speed;
-		AtCheckup = false;
+		CheckupDuration = ER.getCheckupDuration();
+		NumberOfMissions = ER.getNumberOfMissions();
+		speed = ER.getSpeed();
+		AtCheckup = ER.getAtCheckup();
 		type = 'E';
 	}
 

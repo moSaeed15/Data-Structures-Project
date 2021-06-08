@@ -16,12 +16,17 @@ protected:
 	int significance;
 	int MissionID;
 	Rovers* R;
+	int waitingDays;
+	int ED;
+	int CD;
 
 
 public:
 	Missions(int eventday, long int TargetLocation, int MissionDuration, int Significance, int ID)
 	{
-
+		waitingDays = 0;
+		ED = 0;
+		CD = 0;
 		FD = eventday;
 		Target_Location = TargetLocation;
 		Mission_Duration = MissionDuration;
@@ -31,6 +36,9 @@ public:
 	}
 	Missions()
 	{
+		waitingDays = 0;
+		ED = 0;
+		CD = 0;
 		FD = 0;
 		Target_Location = 0;
 		Mission_Duration = 0;
@@ -42,6 +50,15 @@ public:
 		return FD;
 	}
 
+	int GetWD() {
+		return FD;
+	}
+	int GetED() {
+		return ED;
+	}
+	int GetCD() {
+		return CD;
+	}
 	long int GetTarget_Location() {
 		return Target_Location;
 	}

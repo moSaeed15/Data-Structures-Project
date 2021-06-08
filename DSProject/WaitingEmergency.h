@@ -5,7 +5,6 @@
 
 class WaitingEmergency :public Missions {
 protected:
-	int waitingDays = 0;
 
 public:
 	WaitingEmergency(int eventday, long int Targetlocation, int MissionDuration, int Significance, int ID)
@@ -14,7 +13,7 @@ public:
 		R = nullptr;
 	}
 
-	bool assignEMRover(LinkedQueue<PolarRovers>& QPR, LinkedQueue<EmergencyRovers>& QER) {
+	bool assignEMRover(LinkedQueue<PolarRovers> QPR, LinkedQueue<EmergencyRovers> QER) {
 		if (!QER.isEmpty()) {
 			EmergencyRovers ER;
 
